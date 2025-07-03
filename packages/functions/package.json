@@ -6,6 +6,9 @@
     "test": "sst bind vitest",
     "typecheck": "tsc -noEmit"
   },
+  "dependencies": {
+    "@person-crud-serverless/core": "*"
+  },
   "devDependencies": {
     "@types/node": "^24.0.10",
     "@types/aws-lambda": "^8.10.150",

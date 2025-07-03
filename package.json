@@ -1,0 +1,25 @@
+{
+  "name": "person-crud-serverless",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "sst dev",
+    "build": "sst build",
+    "refresh": "sst refresh",
+    "deploy": "sst deploy",
+    "remove": "sst remove",
+    "console": "sst console",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@tsconfig/node22": "^22.0.2",
+    "aws-cdk-lib": "2.142.1",
+    "constructs": "10.3.0",
+    "sst": "^3.17.8",
+    "typescript": "^5.8.3"
+  },
+  "workspaces": [
+    "packages/*"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "name": "@person-crud-serverless/core",
+  "type": "module",
+  "version": "0.0.0",
+  "scripts": {
+    "test": "sst shell vitest"
+  },
+  "exports": {
+    "./*": [
+      "./src/*/index.ts",
+      "./src/*.ts"
+    ]
+  },
+  "dependencies": {
+    "sst": "*"
+  },
+  "devDependencies": {
+    "vitest": "^2"
+  }
+}
+
