@@ -1,2 +1,2 @@
-export * from "./data/services/person";
+export * from "./data/services/PersonService";
 export * from "./domain/models/person";
