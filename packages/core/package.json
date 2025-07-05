@@ -6,16 +6,15 @@
     "test": "sst shell vitest"
   },
   "exports": {
-    "./*": [
-      "./src/*/index.ts",
-      "./src/*.ts"
-    ]
+    ".": {
+      "import": "./src/index.ts"
+  }
   },
   "dependencies": {
-    "sst": "*"
+    "sst": "*",
+    "zod": "^3.25.74"
   },
   "devDependencies": {
     "vitest": "^2"
   }
 }
-

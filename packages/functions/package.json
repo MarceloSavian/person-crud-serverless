@@ -3,16 +3,16 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "test": "sst bind vitest",
+    "test": "sst shell vitest",
     "typecheck": "tsc -noEmit"
   },
   "dependencies": {
     "@person-crud-serverless/core": "*"
   },
   "devDependencies": {
-    "@types/node": "^24.0.10",
     "@types/aws-lambda": "^8.10.150",
-    "vitest": "^3.2.4",
-    "sst": "^3.17.8"
+    "@types/node": "^24.0.10",
+    "sst": "^3.17.8",
+    "vitest": "^3.2.4"
   }
 }
