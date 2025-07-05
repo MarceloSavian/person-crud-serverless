@@ -1,14 +1,17 @@
-import {
-  APIGatewayProxyEventV2,
-  APIGatewayProxyResult,
-  APIGatewayProxyResultV2,
-} from "aws-lambda";
+import { APIGatewayProxyEventV2, APIGatewayProxyResult } from "aws-lambda";
 import { ProxyRoute } from "../domain/proxy";
 import { IPersonProxy } from "../domain/v1-person";
-import { Person, PersonService } from "@person-crud-serverless/core";
+import {
+  Person,
+  PersonResitory,
+  PersonService,
+} from "@person-crud-serverless/core";
 import { logErrorAndFormat } from "../shared/error";
+import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 
-const personService = new PersonService();
+const dynamo = new DynamoDBClient();
+const repository = new PersonResitory(dynamo);
+const personService = new PersonService(repository);
 
 class PersonProxy {
   static async createPerson(

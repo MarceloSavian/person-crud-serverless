@@ -8,10 +8,12 @@
   "exports": {
     ".": {
       "import": "./src/index.ts"
-  }
+    }
   },
   "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.840.0",
     "sst": "*",
+    "uuid": "^11.1.0",
     "zod": "^3.25.74"
   },
   "devDependencies": {
