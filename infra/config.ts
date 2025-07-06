@@ -21,7 +21,7 @@ export const loadConfig = (): AppConfig => {
     test: {
       domain,
       certificateArn:
-        'arn:aws:acm:eu-west-3:435238036861:certificate/b00857c0-9555-43a8-a86b-6dbe743e4bf1',
+        'arn:aws:acm:eu-west-3:435238036861:certificate/da8d33e0-a1a4-4d00-902a-8bd6d30d5c83',
     },
     prod: {
       domain,
