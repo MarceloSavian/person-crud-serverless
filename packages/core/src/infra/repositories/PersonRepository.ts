@@ -1,13 +1,13 @@
-import { DynamoDBClient, PutItemCommand } from "@aws-sdk/client-dynamodb";
-import { IPersonRepository } from "../../data/usecases/PersonRepository";
-import { Person } from "../../domain/models/person";
-import { v4 as uuidv4 } from "uuid";
-import { Resource } from "sst";
+import { DynamoDBClient, PutItemCommand } from '@aws-sdk/client-dynamodb';
+import { IPersonRepository } from '../../data/protocols/PersonRepository';
+import { Person } from '../../domain/models/person';
+import { v4 as uuidv4 } from 'uuid';
+import { Resource } from 'sst';
 
-export class PersonResitory implements IPersonRepository {
+export class PersonRepository implements IPersonRepository {
   constructor(private readonly dynamoDb: DynamoDBClient) {}
 
-  async insert(person: Omit<Person, "id">): Promise<Person> {
+  async insert(person: Omit<Person, 'id'>): Promise<Person> {
     const id = uuidv4();
 
     const item = {

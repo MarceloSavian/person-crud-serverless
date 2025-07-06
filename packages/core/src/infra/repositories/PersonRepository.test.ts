@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from 'vitest';
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
-import { PersonResitory } from './PersonRepository';
+import { PersonRepository } from './PersonRepository';
 
 vi.mock('uuid', () => ({
   v4: () => 'mock-uuid',
@@ -19,7 +19,7 @@ describe('PersonRepository', () => {
     send: mockSend,
   };
 
-  const repo = new PersonResitory(mockClient as DynamoDBClient);
+  const repo = new PersonRepository(mockClient as DynamoDBClient);
 
   it('should insert a person and return the person with id', async () => {
     const personData = {

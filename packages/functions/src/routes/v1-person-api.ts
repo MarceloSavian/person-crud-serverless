@@ -1,24 +1,21 @@
-import { APIGatewayProxyEventV2, APIGatewayProxyResult } from "aws-lambda";
-import { ProxyRoute } from "../domain/proxy";
-import { IPersonProxy } from "../domain/v1-person";
-import {
-  Person,
-  PersonResitory,
-  PersonService,
-} from "@person-crud-serverless/core";
-import { logErrorAndFormat } from "../shared/error";
-import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
+import { APIGatewayProxyEventV2, APIGatewayProxyResult } from 'aws-lambda';
+import { ProxyRoute } from '../domain/proxy';
+import { IPersonProxy } from '../domain/v1-person';
+import { Person, PersonEvent, PersonRepository, PersonService } from '@person-crud-serverless/core';
+import { logErrorAndFormat } from '../shared/error';
+import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
+import { EventBridgeClient } from '@aws-sdk/client-eventbridge';
 
 const dynamo = new DynamoDBClient();
-const repository = new PersonResitory(dynamo);
-const personService = new PersonService(repository);
+const eventBus = new EventBridgeClient();
+const repository = new PersonRepository(dynamo);
+const personEvent = new PersonEvent(eventBus);
+const personService = new PersonService(repository, personEvent);
 
 class PersonProxy {
-  static async createPerson(
-    event: APIGatewayProxyEventV2,
-  ): Promise<APIGatewayProxyResult> {
+  static async createPerson(event: APIGatewayProxyEventV2): Promise<APIGatewayProxyResult> {
     try {
-      const body = JSON.parse(event.body ?? "{}");
+      const body = JSON.parse(event.body ?? '{}');
       const input = Person.omit({ id: true }).parse(body);
 
       const result = await personService.createPerson(input);
@@ -36,12 +33,10 @@ class PersonProxy {
 const proxy: IPersonProxy = PersonProxy;
 
 const routes: ProxyRoute = {
-  "POST /person": proxy.createPerson,
+  'POST /person': proxy.createPerson,
 };
 
-export const handler = async (
-  event: APIGatewayProxyEventV2,
-): Promise<APIGatewayProxyResult> => {
+export const handler = async (event: APIGatewayProxyEventV2): Promise<APIGatewayProxyResult> => {
   const routeDefinition = `${event.requestContext.http.method} ${event.requestContext.http.path}`;
   const route = routes[routeDefinition];
   return route
