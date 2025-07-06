@@ -1,48 +1,47 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
-import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
-import { PersonResitory } from "./PersonRepository";
+import { describe, it, expect, vi } from 'vitest';
+import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
+import { PersonResitory } from './PersonRepository';
 
-vi.mock("uuid", () => ({
-  v4: () => "mock-uuid",
+vi.mock('uuid', () => ({
+  v4: () => 'mock-uuid',
 }));
 
-vi.mock("sst", () => ({
+vi.mock('sst', () => ({
   Resource: {
-    Person: { name: "MockPersonTable" },
+    Person: { name: 'MockPersonTable' },
   },
 }));
 
-describe("PersonRepository", () => {
-  let mockSend = vi.fn().mockResolvedValue({});
-  let repo: PersonResitory;
+describe('PersonRepository', () => {
+  const mockSend = vi.fn().mockResolvedValue({});
 
   const mockClient: unknown = {
     send: mockSend,
   };
 
-  repo = new PersonResitory(mockClient as DynamoDBClient);
+  const repo = new PersonResitory(mockClient as DynamoDBClient);
 
-  it("should insert a person and return the person with id", async () => {
+  it('should insert a person and return the person with id', async () => {
     const personData = {
-      firstName: "test",
-      lastName: "test",
-      address: "test",
-      phoneNumber: "test",
+      firstName: 'test',
+      lastName: 'test',
+      address: 'test',
+      phoneNumber: 'test',
     };
 
     const result = await repo.insert(personData);
 
     expect(result).toEqual({
-      id: "mock-uuid",
+      id: 'mock-uuid',
       ...personData,
     });
 
     expect(mockSend).toHaveBeenCalledWith(
       expect.objectContaining({
         input: {
-          TableName: "MockPersonTable",
+          TableName: 'MockPersonTable',
           Item: {
-            id: { S: "mock-uuid" },
+            id: { S: 'mock-uuid' },
             address: { S: personData.address },
             firstName: { S: personData.firstName },
             lastName: { S: personData.lastName },
