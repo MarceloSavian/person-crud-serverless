@@ -62,7 +62,8 @@ This project was built on the monorepo template given by SST. Being a monorepo w
 │    └── shared # Shared between handles like error handlers 
 │    └── domain # Definition for the proxy functions
 ├── sst.config.ts # SST configuration 
-└── README.md ```
+└── README.md 
+```
 
 ## Deployment 
 
@@ -76,3 +77,4 @@ You can also define a stage:
 ```
 npm run deploy --stage=marcelo
 ```
+
