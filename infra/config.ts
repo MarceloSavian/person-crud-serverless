@@ -1,4 +1,3 @@
-import { Resource } from 'sst';
 import zod from 'zod';
 
 const Env = zod.enum(['test', 'prod']);
@@ -11,18 +10,18 @@ export const AppConfig = zod.object({
 export type AppConfig = zod.infer<typeof AppConfig>;
 
 export const loadConfig = (): AppConfig => {
-  const env = Env.catch('test').parse(Resource.App.stage);
+  const env = Env.catch('test').parse($app.stage);
 
   const domain =
-    Resource.App.stage == env
+    $app.stage == env
       ? `api.${env}.marcelosavian.com`
-      : `api.${env}.${Resource.App.stage}.marcelosavian.com`;
+      : `${$app.stage}.api.${env}.marcelosavian.com`;
 
   const config: Record<Env, AppConfig> = {
     test: {
       domain,
       certificateArn:
-        'arn:aws:acm:eu-west-3:435238036861:certificate/0232bec4-430e-473d-95ca-c7f688305a1e',
+        'arn:aws:acm:eu-west-3:435238036861:certificate/b00857c0-9555-43a8-a86b-6dbe743e4bf1',
     },
     prod: {
       domain,
