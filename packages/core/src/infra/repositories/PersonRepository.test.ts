@@ -13,17 +13,14 @@ vi.mock("sst", () => ({
 }));
 
 describe("PersonRepository", () => {
-  let mockSend: ReturnType<typeof vi.fn>;
+  let mockSend = vi.fn().mockResolvedValue({});
   let repo: PersonResitory;
 
-  beforeEach(() => {
-    mockSend = vi.fn().mockResolvedValue({});
-    const mockClient = {
-      send: mockSend,
-    } as unknown as DynamoDBClient;
+  const mockClient: unknown = {
+    send: mockSend,
+  };
 
-    repo = new PersonResitory(mockClient);
-  });
+  repo = new PersonResitory(mockClient as DynamoDBClient);
 
   it("should insert a person and return the person with id", async () => {
     const personData = {
