@@ -1,6 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
 import { PersonEvent } from './PersonEvent';
 import { EventBridgeClient } from '@aws-sdk/client-eventbridge';
+import { Resource } from 'sst';
 
 describe('PersonEvent', () => {
   const mockSend = vi.fn().mockResolvedValue({});
@@ -30,7 +31,7 @@ describe('PersonEvent', () => {
               Source: 'person.api',
               DetailType: 'person.created',
               Detail: JSON.stringify(personData),
-              EventBusName: 'person-created',
+              EventBusName: Resource.PersonCreated.name,
             },
           ],
         },
