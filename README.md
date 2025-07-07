@@ -102,3 +102,9 @@ curl --location 'https://api.test.marcelosavian.com/v1/person' \
 }'
 ```
 
+You can also GET this person with the generated id that will be returned in the response:
+
+```
+curl --location 'https://api.test.marcelosavian.com/v1/person/e1a6a581-736e-45e3-90f3-39419d32bc23'
+```
+
