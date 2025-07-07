@@ -1,5 +1,6 @@
-import { Person } from '../../domain/models/person';
+import { NonEmptyString, Person } from '../../domain/models/person';
 import { IPersonService } from '../../domain/usecases/person';
+import { BaseError } from '../../handlers/shared/error';
 import { IPersonEvent } from '../protocols/PersonEvent';
 import { IPersonRepository } from '../protocols/PersonRepository';
 
@@ -15,5 +16,13 @@ export class PersonService implements IPersonService {
     await this.personEvent.send(result);
 
     return result;
+  }
+
+  async getPerson(id: NonEmptyString): Promise<Person> {
+    const person = await this.personRepository.get(id);
+
+    if (!person) throw new BaseError('Person not found', 404);
+
+    return person;
   }
 }

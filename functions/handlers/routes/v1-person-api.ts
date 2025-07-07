@@ -7,7 +7,7 @@ import { EventBridgeClient } from '@aws-sdk/client-eventbridge';
 import { PersonRepository } from '../../infra/repositories/PersonRepository';
 import { PersonEvent } from '../../infra/events/PersonEvent';
 import { PersonService } from '../../data/services/PersonService';
-import { Person } from '../../domain/models/person';
+import { NonEmptyString, Person } from '../../domain/models/person';
 
 const dynamo = new DynamoDBClient();
 const eventBus = new EventBridgeClient();
@@ -31,18 +31,33 @@ class PersonProxy {
       return logErrorAndFormat(error);
     }
   }
+
+  static async getPerson(event: APIGatewayProxyEventV2): Promise<APIGatewayProxyResult> {
+    try {
+      const input = NonEmptyString.parse(event.pathParameters?.personId);
+
+      const result = await personService.getPerson(input);
+
+      return {
+        statusCode: 200,
+        body: JSON.stringify(result),
+      };
+    } catch (error) {
+      return logErrorAndFormat(error);
+    }
+  }
 }
 
 const proxy: IPersonProxy = PersonProxy;
 
 const routes: ProxyRoute = {
   'POST /person': proxy.createPerson,
+  'GET /person/{personId}': proxy.getPerson,
 };
 
 export const handler = async (event: APIGatewayProxyEventV2): Promise<APIGatewayProxyResult> => {
-  const routeDefinition = `${event.requestContext.http.method} ${event.requestContext.http.path}`;
-  const route = routes[routeDefinition];
+  const route = routes[event.routeKey];
   return route
     ? await route(event)
-    : { statusCode: 404, body: `Request path ${routeDefinition} not found` };
+    : { statusCode: 404, body: `Request path ${event.routeKey} not found` };
 };

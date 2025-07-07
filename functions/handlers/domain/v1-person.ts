@@ -1,5 +1,6 @@
-import { APIGatewayProxyEventV2, APIGatewayProxyResult } from "aws-lambda";
+import { APIGatewayProxyEventV2, APIGatewayProxyResult } from 'aws-lambda';
 
 export interface IPersonProxy {
   createPerson(event: APIGatewayProxyEventV2): Promise<APIGatewayProxyResult>;
+  getPerson(event: APIGatewayProxyEventV2): Promise<APIGatewayProxyResult>;
 }

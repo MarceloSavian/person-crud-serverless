@@ -17,4 +17,8 @@ api.route('POST /person', {
   handler: 'functions/handlers/routes/v1-person-api.handler',
 });
 
+api.route('GET /person/{personId}', {
+  handler: 'functions/handlers/routes/v1-person-api.handler',
+});
+
 export { api };
