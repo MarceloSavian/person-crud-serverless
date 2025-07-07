@@ -28,7 +28,6 @@ export class PersonRepository implements IPersonRepository {
   }
 
   async get(id: NonEmptyString): Promise<Person | null> {
-    console.log(id);
     const command = new GetCommand({
       TableName: Resource.Person.name,
       Key: {
