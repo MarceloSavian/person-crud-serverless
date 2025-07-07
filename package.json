@@ -15,7 +15,18 @@
     "lint:fix": "eslint . --ext .ts --fix",
     "format": "prettier --write ."
   },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.840.0",
+    "@aws-sdk/client-eventbridge": "^3.840.0",
+    "@person-crud-serverless/core": "*",
+    "sst": "*",
+    "uuid": "^11.1.0",
+    "zod": "^3.25.74"
+  },
   "devDependencies": {
+    "@types/aws-lambda": "^8.10.150",
+    "@types/node": "^24.0.10",
+    "vitest": "^3.2.4",
     "@tsconfig/node22": "^22.0.2",
     "@typescript-eslint/eslint-plugin": "^8.35.1",
     "@typescript-eslint/parser": "^8.35.1",

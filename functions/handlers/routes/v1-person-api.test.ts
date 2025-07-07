@@ -1,13 +1,13 @@
 import { describe, expect, it, vi } from 'vitest';
 import { mockDeep } from 'vitest-mock-extended';
 import { APIGatewayProxyEventV2 } from 'aws-lambda';
-import { Person, PersonService } from '@person-crud-serverless/core';
+import { PersonService } from '../../data/services/PersonService';
+import { Person } from '../../domain/models/person';
 
 const mockPersonService = mockDeep<PersonService>();
 
-vi.doMock('@person-crud-serverless/core', () => {
+vi.doMock('../../data/services/PersonService', () => {
   return {
-    Person: Person,
     PersonService: vi.fn(() => mockPersonService),
   };
 });

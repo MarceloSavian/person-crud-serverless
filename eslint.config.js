@@ -23,6 +23,6 @@ export default [
     },
   },
   {
-    ignores: ['**/node_modules/', '.sst', '.build', 'coverage/'],
+    ignores: ['**/node_modules/', '.sst/', '.build', 'coverage/'],
   },
 ];

@@ -1,10 +1,13 @@
 import { APIGatewayProxyEventV2, APIGatewayProxyResult } from 'aws-lambda';
 import { ProxyRoute } from '../domain/proxy';
 import { IPersonProxy } from '../domain/v1-person';
-import { Person, PersonEvent, PersonRepository, PersonService } from '@person-crud-serverless/core';
 import { logErrorAndFormat } from '../shared/error';
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 import { EventBridgeClient } from '@aws-sdk/client-eventbridge';
+import { PersonRepository } from '../../infra/repositories/PersonRepository';
+import { PersonEvent } from '../../infra/events/PersonEvent';
+import { PersonService } from '../../data/services/PersonService';
+import { Person } from '../../domain/models/person';
 
 const dynamo = new DynamoDBClient();
 const eventBus = new EventBridgeClient();

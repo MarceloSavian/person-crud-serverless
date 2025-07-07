@@ -14,7 +14,7 @@ const api = new sst.aws.ApiGatewayV2('PersonApi', {
 });
 
 api.route('POST /person', {
-  handler: 'packages/functions/src/routes/v1-person-api.handler',
+  handler: 'functions/handlers/routes/v1-person-api.handler',
 });
 
 export { api };

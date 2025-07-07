@@ -1,8 +1,8 @@
 import { beforeAll, describe, vi, expect, it } from 'vitest';
 import { mockDeep } from 'vitest-mock-extended';
-import { PersonService } from '@person-crud-serverless/core';
 import { IPersonRepository } from '../protocols/PersonRepository';
 import { IPersonEvent } from '../protocols/PersonEvent';
+import { PersonService } from './PersonService';
 
 const mockPersonRepository = mockDeep<IPersonRepository>();
 const mockPersonEvent = mockDeep<IPersonEvent>();
