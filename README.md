@@ -54,9 +54,9 @@ You should see in you console the link to call you API. You can also use [debug 
 │  │  └── events # Any event to be sent to EventBridge
 │  │  └── repositories # All repositories for the database
 │  └── handlers/ 
-│    └── routes # Here it's where all the handlers stay they should always be dependent on the core folder 
-│    └── shared # Shared between handles like error handlers 
-│    └── domain # Definition for the proxy functions
+│     └── routes # Here it's where all the handlers stay they should always be dependent on the core folder 
+│     └── shared # Shared between handles like error handlers 
+│     └── domain # Definition for the proxy functions
 ├── sst.config.ts # SST configuration 
 └── README.md 
 ```
