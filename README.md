@@ -18,7 +18,7 @@ A serverless application built using [SST v3](https://docs.sst.dev), powered by 
 ## Running Locally
 
 **IMPORTANT**
-This project is currently designed to be under marcelosavian.com domain, if you don't want to have a domain configured and generate a random URL you can comment out line 9 and 11 of /infra/api.ts 
+This project is currently designed to be under marcelosavian.com domain, if you don't want to have a domain configured and generate a random URL you can comment out the whole domain section from line 8 and 12 of /infra/api.ts 
 
 Once you have all setup you should first run:
 
@@ -71,6 +71,15 @@ npm run deploy
 
 You can also define a stage:
 ```
-npm run deploy --stage=marcelo
+npm run deploy -- --stage=marcelo
 ```
+
+## Refresh infraestructure
+
+Sometimes it happens that something in your local machine is not in sync with the infraestructure in the cloud and CDK will throw a error for some cases. SST V3 has a good feature for that by running:
+
+```
+npm run refresh -- --stage=?
+```
+This will refresh the local state with the changes done in the cloud and `npm run dev` should run easily after that. It is really similar to `terraform plan`.
 
