@@ -8,6 +8,7 @@
     "build": "sst build",
     "refresh": "sst refresh",
     "deploy": "sst deploy",
+    "test": "sst shell vitest",
     "remove": "sst remove",
     "console": "sst console",
     "typecheck": "tsc --noEmit",
