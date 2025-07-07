@@ -1,6 +1,6 @@
 # Person Crud Serverless
 
-A serverless application built using [SST v3](https://docs.sst.dev), powered by AWS infraestructure including Lambda, API Gateway, Dynamo DB and Event Bridge. The goal of this project was to build a simple insert for a Person and test out new technologies like SST V3.
+A serverless application built using [SST v3](https://docs.sst.dev), powered by AWS infra infrastructure including Lambda, API Gateway, Dynamo DB and Event Bridge. The goal of this project was to build a simple "Person" insert and test out new technologies like SST V3.
 
 ## 🏗 Architecture
 
@@ -13,20 +13,20 @@ A serverless application built using [SST v3](https://docs.sst.dev), powered by 
 ## 🚀 Getting Started
 
 - Node.js >= 18
-- AWS CLI configured (I suggest you to use [aws-vault](https://github.com/99designs/aws-vault) that already creates all you need in you terminal
+- AWS CLI configured (I suggest you to use [aws-vault](https://github.com/99designs/aws-vault) which sets everything up in your terminal)
 
 ## Running Locally
 
 **IMPORTANT**
-This project is currently designed to be under marcelosavian.com domain, if you don't want to have a domain configured and generate a random URL you can comment out the whole domain section from line 8 and 12 of /infra/api.ts 
+This project is currently designed to be under `marcelosavian.com` domain, if you don't want to have a domain configured and generate a random URL you can comment out the whole domain section in `/infra/api.ts` (lines 8 to 12). 
 
-Once you have all setup you should first run:
+After setup, install dependencies:
 
 ```
 npm install
 ```
 
-After that you can run:
+Then start the development server:
 
 ```
 npm run dev
@@ -37,33 +37,37 @@ You can also define a specific stage, and in the current code will deploy the ap
 npm run dev -- --stage=marcelo
 ```
 
-You should see in you console the link to call you API. You can also use [debug mode with VScode](https://sst.dev/docs/live/#breakpoints) to test it (Although I did not yet managed to make it work) or see logs in [SST console](https://console.sst.dev/) giving the permissions needed.
+You should see in you console the link to call you API. 
+
+You can also use [debug mode with VScode](https://sst.dev/docs/live/#breakpoints) to test it (Although I did not yet managed to make it work) or see logs in [SST console](https://console.sst.dev/) giving the permissions needed.
 
 ## Project Structure
 
 ```plaintext . 
-├── infra/ # Infrastructure defined using SST constructs 
-├── functions/ # Lambda function source code 
-│  └── data
-│  │  └── protocols # All interfaces used by the services 
-│  │  └── services # Services with the core logic of the api 
-│  └── domain 
-│  │  └── models # Main models of the api 
-│  │  └── usecases # Definition for the services 
-│  └── infra # Here will be all third party packages we can use and also uses the protocols defined by the services protocols 
-│  │  └── events # Any event to be sent to EventBridge
-│  │  └── repositories # All repositories for the database
-│  └── handlers/ 
-│     └── routes # Here it's where all the handlers stay they should always be dependent on the core folder 
-│     └── shared # Shared between handles like error handlers 
-│     └── domain # Definition for the proxy functions
-├── sst.config.ts # SST configuration 
-└── README.md 
+.
+├── infra/           # Infrastructure defined using SST constructs
+├── functions/       # Lambda function source code
+│   ├── data/
+│   │   ├── protocols/    # Interfaces used by services
+│   │   ├── services/     # Core API logic
+│   ├── domain/
+│   │   ├── models/       # Main API models
+│   │   ├── usecases/     # Service definitions
+│   ├── infra/            # Third-party packages and protocol implementations
+│   │   ├── events/       # EventBridge events
+│   │   ├── repositories/ # Database repositories
+│   ├── handlers/
+│       ├── routes/       # HTTP handlers (should depend only on core)
+│       ├── shared/       # Shared logic like error handlers
+│       ├── domain/       # Proxy function definitions
+├── sst.config.ts    # SST configuration
+└── README.md
+
 ```
 
 ## Deployment 
 
-You can deploy you app by running:
+To deploy your app run:
 
 ```
 npm run deploy
@@ -74,12 +78,27 @@ You can also define a stage:
 npm run deploy -- --stage=marcelo
 ```
 
-## Refresh infraestructure
-
-Sometimes it happens that something in your local machine is not in sync with the infraestructure in the cloud and CDK will throw a error for some cases. SST V3 has a good feature for that by running:
+## Refresh infrastructure
+ 
+Sometimes your local setup may become out of sync with the cloud infrastructure, and CDK might throw an error. SST v3 includes a helpful feature to resolve this:
 
 ```
-npm run refresh -- --stage=?
+npm run refresh -- --stage=your-stage
 ```
-This will refresh the local state with the changes done in the cloud and `npm run dev` should run easily after that. It is really similar to `terraform plan`.
+This will refresh the local state with the current cloud state. After that, npm run dev should work smoothly again. This is similar to terraform plan.
+
+## Testing
+
+Once your API is deployed and running, you can test the POST /v1/person endpoint using curl:
+
+```
+curl --location 'https://api.test.marcelosavian.com/v1/person' \
+--header 'Content-Type: application/json' \
+--data '{
+  "firstName": "Marcelo",
+  "lastName": "Savian",
+  "address": "Brazil",
+  "phoneNumber": "+31 6 82155798"
+}'
+```
 
