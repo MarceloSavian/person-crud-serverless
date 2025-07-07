@@ -41,23 +41,19 @@ You should see in you console the link to call you API. You can also use [debug 
 
 ## Project Structure
 
-This project was built on the monorepo template given by SST. Being a monorepo was not really needed for this project for testing purposes that is what it was choosen.
-
 ```plaintext . 
 ├── infra/ # Infrastructure defined using SST constructs 
-│
-├── packages/ # Lambda function source code 
-│ └── core
-│ │  └── data
-│ │  │  └── protocols # All interfaces used by the services 
-│ │  │  └── services # Services with the core logic of the api 
-│ │  └── domain 
-│ │  │  └── models # Main models of the api 
-│ │  │  └── usecases # Definition for the services 
-│ │  └── infra # Here will be all third party packages we can use and also uses the protocols defined by the services protocols 
-│ │  │  └── events # Any event to be sent to EventBridge
-│ │  │  └── repositories # All repositories for the database
-│ └── functions/ 
+├── functions/ # Lambda function source code 
+│  └── data
+│  │  └── protocols # All interfaces used by the services 
+│  │  └── services # Services with the core logic of the api 
+│  └── domain 
+│  │  └── models # Main models of the api 
+│  │  └── usecases # Definition for the services 
+│  └── infra # Here will be all third party packages we can use and also uses the protocols defined by the services protocols 
+│  │  └── events # Any event to be sent to EventBridge
+│  │  └── repositories # All repositories for the database
+│  └── handlers/ 
 │    └── routes # Here it's where all the handlers stay they should always be dependent on the core folder 
 │    └── shared # Shared between handles like error handlers 
 │    └── domain # Definition for the proxy functions
